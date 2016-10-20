@@ -1,0 +1,36 @@
+[general]
+name=QGIS Server WMS GetLegendGraphic Title
+qgisMinimumVersion=2.14
+qgisMaximumVersion=2.99
+description=Set WMS GetLegendGraphic Layer Title parameter
+version=1.0
+author=DHONT René-Luc (3Liz)
+email=rldhont@3Liz.com
+; if True it's a server plugin
+server=True
+
+about=wmsGetLegendGraphicTitle adds or overrides QGIS Server specific Layer Title parameter to WMS GetLegendGraphic Request.
+
+tracker=https://github.com/3liz/qgis-wmsGetLegendGraphicTitle/issues
+repository=https://github.com/3liz/qgis-wmsGetLegendGraphicTitle
+# End of mandatory metadata
+
+# Recommended items:
+
+# Uncomment the following line and add your changelog:
+# changelog=
+
+external_deps=none,really
+
+# Tags are comma separated with spaces allowed
+tags=server, wms, legend, title
+
+homepage=https://github.com/3liz/qgis-wmsGetLegendGraphicTitle
+category=server
+icon=icon.png
+# experimental flag
+experimental=True
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
