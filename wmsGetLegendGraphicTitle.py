@@ -64,7 +64,7 @@ class ServerGetLegendGraphicTitleFilter(QgsServerFilter):
                         # verifying the shortname
                         if not ml.getElementsByTagName('shortname'):
                             continue
-                        if ml.getElementsByTagName('layername')[0].childNodes[0].data == layer:
+                        if ml.getElementsByTagName('shortname')[0].childNodes[0].data == layer:
                             request.setParameter('LAYERTITLE', 'FALSE')
                             break
 
