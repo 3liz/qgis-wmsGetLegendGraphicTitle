@@ -10,3 +10,5 @@ wmsGetLegendGraphicTitle is a QGIS Server Plugin. It adds QGIS Server specific L
 * the request has not already LAYERTITLE parameter
 
 Use it for a non QGIS Server specific client.
+
+Needs *lxml* python module.

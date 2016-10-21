@@ -29,6 +29,7 @@ from qgis.server import *
 
 import os.path
 from xml.dom import minidom
+from lxml import etree
 
 class ServerGetLegendGraphicTitleFilter(QgsServerFilter):
 
@@ -53,20 +54,12 @@ class ServerGetLegendGraphicTitleFilter(QgsServerFilter):
                     projectPath = params['MAP']
                 # read QGIS project to verify if layer is a map layer and not a group
                 if projectPath and os.path.exists( projectPath ) :
-                    p_dom = minidom.parse( projectPath )
-                    for ml in p_dom.getElementsByTagName('maplayer') :
-                        # verifying the layername
-                        if not ml.getElementsByTagName('layername'):
-                            continue
-                        if ml.getElementsByTagName('layername')[0].childNodes[0].data == layer:
-                            request.setParameter('LAYERTITLE', 'FALSE')
-                            break
-                        # verifying the shortname
-                        if not ml.getElementsByTagName('shortname'):
-                            continue
-                        if ml.getElementsByTagName('shortname')[0].childNodes[0].data == layer:
-                            request.setParameter('LAYERTITLE', 'FALSE')
-                            break
+                    request.setParameter('LAYERTITLE', 'FALSE')
+                    tree = etree.parse(projectPath)
+                    if tree.xpath("//layer-tree-group/customproperties/property[@key='wmsShortName'][@value='%s']" % layer):
+                        request.setParameter('LAYERTITLE', 'TRUE')
+                    elif tree.xpath("//layer-tree-group[@name='%s']" % layer):
+                        request.setParameter('LAYERTITLE', 'TRUE')
 
 
 class ServerGetLegendGraphicTitle:
