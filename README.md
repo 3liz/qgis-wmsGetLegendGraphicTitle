@@ -5,10 +5,12 @@ Description
 ---------------
 
 wmsGetLegendGraphicTitle is a QGIS Server Plugin. It adds QGIS Server specific Layer Title parameter to false if :
-* only one layer is requested
-* the requested layer is not a groupe
-* the request has not already LAYERTITLE parameter
+
+* Only one layer is requested
+* The requested layer is not a group
+* The request does not have a LAYERTITLE parameter
 
 Use it for a non QGIS Server specific client.
 
 Needs *lxml* python module.
+

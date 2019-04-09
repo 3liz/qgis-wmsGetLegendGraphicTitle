@@ -1,9 +1,9 @@
 [general]
 name=QGIS Server WMS GetLegendGraphic Title
-qgisMinimumVersion=2.14
-qgisMaximumVersion=2.99
+qgisMinimumVersion=3.4
+#qgisMaximumVersion=
 description=Set WMS GetLegendGraphic Layer Title parameter
-version=1.1
+version=1.2rc
 author=DHONT René-Luc (3Liz)
 email=rldhont@3Liz.com
 ; if True it's a server plugin
