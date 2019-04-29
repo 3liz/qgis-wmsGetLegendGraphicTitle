@@ -44,14 +44,14 @@ class ServerGetLegendGraphicTitleFilter(QgsServerFilter):
             and not params.get('LAYERTITLE'):
 
             # get layers
-            layers = params.get('LAYER') or params.get('LAYERS') 
+            layers = params.get('LAYER') or params.get('LAYERS')
             # do something only we have one requested layer
             if layers:
                 layers = layers.split(',')
                 if len(layers) == 1:
                     layer = layers[0].strip()
                     # get QGIS project path
-                    projectPath = self.serverInterface.configFilePath()
+                    projectPath = self.serverInterface().configFilePath()
                     # read QGIS project to verify if layer is a map layer and not a group
                     if projectPath and os.path.exists( projectPath ):
                         request.setParameter('LAYERTITLE', 'FALSE')
