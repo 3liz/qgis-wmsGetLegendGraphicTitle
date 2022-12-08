@@ -28,7 +28,6 @@ from qgis.PyQt.QtWidgets import QAction, QMessageBox
 
 import os.path
 
-from xml.dom import minidom
 from lxml import etree
 
 
