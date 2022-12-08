@@ -93,5 +93,3 @@ class GetLegendGraphicTitle:
     # run
     def about(self) -> None:
         QMessageBox.information(self.iface.mainWindow(), QCoreApplication.translate('GetLegendGraphicTitle', "Server GetLegendGraphicTitle"), QCoreApplication.translate('GetFeatureInfoPrecision', "Server GetFeatureInfoPrecision is a simple plugin for QGIS Server, it does just nothing in QGIS Desktop. See: <a href=\"https://github.com/3liz/qgis-wmsGetLegendGraphicTitle\">plugin's homepage</a>"))
-
-
