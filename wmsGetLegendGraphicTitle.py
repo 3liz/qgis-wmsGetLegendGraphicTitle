@@ -27,9 +27,29 @@ from qgis.PyQt.QtCore import QCoreApplication, QObject
 from qgis.PyQt.QtWidgets import QAction, QMessageBox
 
 import os.path
+from pathlib import Path
+from zipfile import ZipFile
 
-from xml.dom import minidom
 from lxml import etree
+
+
+def get_project_xml(project_path: str) -> str:
+    """Get xml content of a qgis project file (qgs or qgz)
+
+    :param str project_path: qgis project file path
+    :returns: xml as a string
+    """
+    if Path(project_path).suffix == '.qgs':
+        with open(project_path) as project_file:
+            content = project_file.read()
+    else:
+        with ZipFile(project_path, 'r') as qgz_file:
+            for zip_info in qgz_file.infolist():
+                if zip_info.filename.endswith('.qgs'):
+                    content = qgz_file.read(zip_info.filename).decode('utf-8')
+                    break
+
+    return content
 
 
 class ServerGetLegendGraphicTitleFilter(QgsServerFilter):
@@ -55,7 +75,7 @@ class ServerGetLegendGraphicTitleFilter(QgsServerFilter):
                     # read QGIS project to verify if layer is a map layer and not a group
                     if projectPath and os.path.exists( projectPath ):
                         request.setParameter('LAYERTITLE', 'FALSE')
-                        tree = etree.parse(projectPath)
+                        tree = etree.fromstring(get_project_xml(projectPath))
                         if tree.xpath("//layer-tree-group/customproperties/property[@key='wmsShortName'][@value='%s']" % layer):
                             request.setParameter('LAYERTITLE', 'TRUE')
                         elif tree.xpath("//layer-tree-group[@name='%s']" % layer):
@@ -93,5 +113,3 @@ class GetLegendGraphicTitle:
     # run
     def about(self) -> None:
         QMessageBox.information(self.iface.mainWindow(), QCoreApplication.translate('GetLegendGraphicTitle', "Server GetLegendGraphicTitle"), QCoreApplication.translate('GetFeatureInfoPrecision', "Server GetFeatureInfoPrecision is a simple plugin for QGIS Server, it does just nothing in QGIS Desktop. See: <a href=\"https://github.com/3liz/qgis-wmsGetLegendGraphicTitle\">plugin's homepage</a>"))
-
-
